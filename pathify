@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/* globals process exports */
+/* eslint-disable lines-around-comment */
+
+(function() {
+  var fn = function(obj, accumaltedKey) {
+    var keys = Object.keys(obj);
+    var result = [];
+
+    keys.forEach((key) => {
+      var val = obj[key];
+      var acKey = accumaltedKey + '.' + key;
+
+      if (typeof val === 'object' && !Array.isArray(val)) {
+        result = result.concat(fn(val, acKey));
+      } else {
+        result = result.concat([ {key: acKey, value: val} ]);
+      }
+    });
+
+    return result;
+  };
+
+  function toPath(obj) {
+    var inPaths = {};
+    fn(obj, '').forEach((pair) => {
+      inPaths[pair.key.slice(1)] = pair.value;
+    });
+    return (inPaths);
+  }
+
+  exports.toPath = toPath;
+
+  // console.log(' ==================================== ');
+
+  // console.log(' ** `f({a: 1})`');
+  // console.log(toPath({a: 1}));
+  // console.log(' ** ` f({b: {a: 1, c: 2}})`');
+  // console.log(toPath({b: {a: 1, c: 2}}));
+  // console.log(' ** `f({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}})`');
+  // console.log(toPath({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}}));
+  // console.log(' ** `f({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}})`');
+  // console.log(toPath({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}}));
+
+  // console.log(' ==================================== ');
+}());
