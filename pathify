@@ -26,6 +26,11 @@
 
   function toPath(obj) {
     var inPaths = {};
+
+    if (typeof obj !== 'object' || Array.isArray(obj)){
+      return obj;
+    }
+
     fn(obj, '').forEach((pair) => {
       inPaths[pair.key.slice(1)] = pair.value;
     });
