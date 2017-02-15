@@ -5,50 +5,48 @@
 /* globals process exports */
 /* eslint-disable lines-around-comment */
 
-(function() {
-  var fn = function(obj, accumaltedKey) {
-    var keys = Object.keys(obj);
-    var result = [];
+var fn = function(obj, accumaltedKey) {
+  var keys = Object.keys(obj);
+  var result = [];
 
-    keys.forEach((key) => {
-      var val = obj[key];
-      var acKey = accumaltedKey + '.' + key;
+  keys.forEach((key) => {
+    var val = obj[key];
+    var acKey = accumaltedKey + '.' + key;
 
-      if (typeof val === 'object' && !Array.isArray(val)) {
-        result = result.concat(fn(val, acKey));
-      } else {
-        result = result.concat([ {key: acKey, value: val} ]);
-      }
-    });
-
-    return result;
-  };
-
-  function toPath(obj) {
-    var inPaths = {};
-
-    if (typeof obj !== 'object' || Array.isArray(obj)){
-      return obj;
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      result = result.concat(fn(val, acKey));
+    } else {
+      result = result.concat([ {key: acKey, value: val} ]);
     }
+  });
 
-    fn(obj, '').forEach((pair) => {
-      inPaths[pair.key.slice(1)] = pair.value;
-    });
-    return (inPaths);
+  return result;
+};
+
+function toPath(obj) {
+  var inPaths = {};
+
+  if (typeof obj !== 'object' || Array.isArray(obj)) {
+    return obj;
   }
 
-  exports.toPath = toPath;
+  fn(obj, '').forEach((pair) => {
+    inPaths[pair.key.slice(1)] = pair.value;
+  });
+  return (inPaths);
+}
 
-  // console.log(' ==================================== ');
+// console.log(' ==================================== ');
 
-  // console.log(' ** `f({a: 1})`');
-  // console.log(toPath({a: 1}));
-  // console.log(' ** ` f({b: {a: 1, c: 2}})`');
-  // console.log(toPath({b: {a: 1, c: 2}}));
-  // console.log(' ** `f({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}})`');
-  // console.log(toPath({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}}));
-  // console.log(' ** `f({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}})`');
-  // console.log(toPath({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}}));
+// console.log(' ** `f({a: 1})`');
+// console.log(toPath({a: 1}));
+// console.log(' ** ` f({b: {a: 1, c: 2}})`');
+// console.log(toPath({b: {a: 1, c: 2}}));
+// console.log(' ** `f({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}})`');
+// console.log(toPath({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}}));
+// console.log(' ** `f({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}})`');
+// console.log(toPath({b: {a: 1, c: 2}, d: {a: {j: [0, 1, 2]}}}));
 
-  // console.log(' ==================================== ');
-}());
+// console.log(' ==================================== ');
+
+exports.toPath = toPath;
