@@ -4,7 +4,23 @@
   "description": "Converts a neested object, into a single object with path as keys. It's aim is to aid using objects as queries for mongodb",
   "main": "pathify",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run eslint && mocha --reporter spec",
+    "testwin": "node ./node_modules/mocha/bin/mocha --reporter spec",
+    "eslint": "eslint *.js",
+    "coverage": "istanbul cover _mocha --report lcovonly -- -R spec",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "changelog": "git log $(git describe --tags --abbrev=0)..HEAD --pretty='* %s' --first-parent"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.15",
+    "eslint": "^3.15.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "mocha-lcov-reporter": "^1.2.0",
+    "should": "^11.1.1"
+  },
+  "bin": {
+    "pathify": "./pathify"
   },
   "keywords": [
     "object",
