@@ -13,7 +13,7 @@ var fn = function(obj, accumaltedKey) {
     var val = obj[key];
     var acKey = accumaltedKey + '.' + key;
 
-    if (typeof val === 'object' && !Array.isArray(val)) {
+    if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
       result = result.concat(fn(val, acKey));
     } else {
       result = result.concat([ {key: acKey, value: val} ]);
