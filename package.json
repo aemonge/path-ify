@@ -1,6 +1,6 @@
 {
   "name": "path-ify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Converts a neested object, into a single object with path as keys. It's aim is to aid using objects as queries for mongodb",
   "main": "pathify",
   "scripts": {
