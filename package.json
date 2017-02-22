@@ -1,6 +1,6 @@
 {
   "name": "path-ify",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Converts a neested object, into a single object with path as keys. It's aim is to aid using objects as queries for mongodb",
   "main": "pathify",
   "scripts": {
@@ -10,6 +10,10 @@
     "coverage": "istanbul cover _mocha --report lcovonly -- -R spec",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "changelog": "git log $(git describe --tags --abbrev=0)..HEAD --pretty='* %s' --first-parent"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aemonge/path-ify.git"
   },
   "devDependencies": {
     "coveralls": "^2.11.15",
