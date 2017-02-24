@@ -9,7 +9,7 @@ var fn = function(obj, accumaltedKey) {
   var keys = Object.keys(obj);
   var result = [];
 
-  keys.forEach((key) => {
+  keys.forEach(function(key) {
     var val = obj[key];
     var acKey = accumaltedKey + '.' + key;
 
@@ -30,7 +30,7 @@ function toPath(obj) {
     return obj;
   }
 
-  fn(obj, '').forEach((pair) => {
+  fn(obj, '').forEach(function(pair) {
     inPaths[pair.key.slice(1)] = pair.value;
   });
   return (inPaths);
